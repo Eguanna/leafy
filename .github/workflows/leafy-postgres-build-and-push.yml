@@ -34,7 +34,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./leafy-postgresql  
-        # Dockerfile이 있는 위치입니다.
+        # Dockerfile이 있는 위치입니다. # context는 Dockerfile 경로에만 두나요?
         file: ./leafy-postgresql/Dockerfile  
         # Dockerfile의 경로입니다.
         push: true  

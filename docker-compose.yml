@@ -1,6 +1,6 @@
 version: '3'
 services:
-  leafy-postgres:
+  leafy-postgresql:
     build: ./leafy-postgresql
     image: leafy-postgres:5.0.0-compose
     volumes:
@@ -18,7 +18,7 @@ services:
     environment:
       - DB_URL=leafy-postgres
     depends_on:
-      - leafy-postgres
+      - leafy-postgresql
     deploy:
       resources:
         limits:
