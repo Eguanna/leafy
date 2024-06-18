@@ -41,13 +41,9 @@ jobs:
         # 이미지를 레지스트리에 푸시합니다.
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/leafy-postgres:${{ github.sha }}
     
-    - name: rewrite env file var and commit
-      run: cd .. && pwd  &&  if grep -q "^LEAFY_POSTGRES_TAG=" .env; then sed -i'' -e "s/^LEAFY_POSTGRES_TAG=.*/LEAFY_POSTGRES_TAG=${{github.sha}}/" .env;  else echo "LEAFY_POSTGRES_TAG=${{github.sha}}" >> .env; fi;
-        git config --global core.autocrlf false;
-        git config --global user.name 'github-actions[bot]';
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com';
-        git add .env;
-        git commit -m "Update .env file via GitHub Actions";
-        git push;
+    - name: rewrite env file var with log
+      run: pwd && ls -al . &&  if grep -q "^LEAFY_POSTGRES_TAG=" .env; then sed -i'' -e "s/^LEAFY_POSTGRES_TAG=.*/LEAFY_POSTGRES_TAG=${{github.sha}}/" .env;  else echo "LEAFY_POSTGRES_TAG=${{github.sha}}" >> .env; fi;
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+      
+      
