@@ -11,7 +11,7 @@ RUN gradle dependencies --no-daemon
 
 # 호스트 머신의 소스코드를 작업 디렉토리로 복사
 COPY . /app
-
+ENV TYPE_YOUR_REPOSITORY mydb
 # Gradle 빌드를 실행하여 JAR 파일 생성
 RUN gradle clean build --no-daemon
 
