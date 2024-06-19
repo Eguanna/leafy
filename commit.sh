@@ -17,6 +17,8 @@ elif [ $1 = 'front' ]; then
 elif [ $1 = 'postgresql' ]; then
     TARGET_DIR='./leafy-postgresql/'
     SERVICE_TAG='LEAFY_POSTGRES_TAG'
+else 
+    TARGET_DIR='.'
 fi
 
 # 특정 폴더 내용 커밋 및 푸쉬
@@ -27,6 +29,7 @@ git push
 COMMITHASH=$(echo `git rev-parse --verify HEAD`)
 
 # 다른 파일 수정
+# 아래 sed i, e 태그 IBM
 # if grep -q "^LEAFY_POSTGRES_TAG=" .env; then sed -i'' -e "s/^LEAFY_POSTGRES_TAG=.*/LEAFY_POSTGRES_TAG=${TEST}/" .env;  else echo "LEAFY_POSTGRES_TAG=${TEST}" >> .env; fi;
 if [ ! $SERVICE_TAG -z ] && [ $(grep -c "^${SERVICE_TAG}=" .env) -eq 1 ]
 then 
@@ -38,6 +41,6 @@ fi
 
 # 다른 파일 변경 사항 커밋 및 푸쉬
 cd ..
-git add $(basename $ENV_FILE)
+git add $ENV_FILE
 git commit -m "SH ENV FILE UPDATED"
 git push
