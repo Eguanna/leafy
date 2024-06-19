@@ -6,14 +6,15 @@ cd ~/Desktop/docker/test-leafy
 TARGET_DIR=""
 ENV_FILE=".env"    # 수정할 파일 경로
 SERVICE_TAG=""
+COMMIT_MSG1=$2
 
-if [ $1 -eq 'backend' ]; then 
+if [ $1 = 'backend' ]; then 
     TARGET_DIR='./leafy-backend/'
     SERVICE_TAG=''
-elif [ $1 -eq 'front' ]; then
+elif [ $1 = 'front' ]; then
     TARGET_DIR='./leafy-front/'
     SERVICE_TAG='LEAFY_FRONTEND_TAG'
-elif [ $1 -eq 'postgresql' ]; then
+elif [ $1 = 'postgresql' ]; then
     TARGET_DIR='./leafy-postgresql/'
     SERVICE_TAG='LEAFY_POSTGRES_TAG'
 fi
@@ -23,7 +24,7 @@ cd $TARGET_DIR
 git add .
 git commit -m "$COMMIT_MSG1"
 git push
-COMMITHASH=$(git rev-parse --verify HEAD)
+COMMITHASH=$(echo `git rev-parse --verify HEAD`)
 
 # 다른 파일 수정
 # if grep -q "^LEAFY_POSTGRES_TAG=" .env; then sed -i'' -e "s/^LEAFY_POSTGRES_TAG=.*/LEAFY_POSTGRES_TAG=${TEST}/" .env;  else echo "LEAFY_POSTGRES_TAG=${TEST}" >> .env; fi;

@@ -2,10 +2,10 @@ version: '3'
 services:
   leafy-postgres:
     image: ${DOCKER_HUB_USERNAME}/leafy-postgres:${LEAFY_POSTGRES_TAG}
-    # prots:
-    #   - "5432:5432"
+    prots:
+      - 5432:5432
     volumes:
-      - "'/${pwd}/data':/var/lib/postgresql/data"
+      - /data:/var/lib/postgresql/data
     deploy:
       resources:
         limits:
@@ -14,13 +14,15 @@ services:
     restart: always
 
   leafy-backend:
-    build: ./leafy-backend
+    build: 
+      context: ./leafy-backend
+      dockerfile: Dockerfile
     image: ${DOCKER_HUB_USERNAME}/leafy-backend:1.0.0-compose
     command: sh -c "/script.sh"
     environment:
       - DB_URL=leafy-postgres
-    # ports:
-    #   - "8080:8080"
+    ports:
+      - 8080:8080
     depends_on:
       - leafy-postgres
     deploy:

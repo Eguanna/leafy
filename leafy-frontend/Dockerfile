@@ -22,7 +22,7 @@ FROM nginx:1.21.4-alpine
 ENV BACKEND_HOST leafy
 ENV BACKEND_PORT 8080
 COPY nginx.conf /etc/nginx/conf.d/default.conf.template
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
