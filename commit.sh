@@ -22,7 +22,7 @@ else
 fi
 
 # 특정 폴더 내용 커밋 및 푸쉬
-cd $TARGET_DIR
+# cd $TARGET_DIR
 git add $TARGET_DIR
 git commit -m "$COMMIT_MSG1"
 git push
@@ -31,6 +31,7 @@ COMMITHASH=$(echo `git rev-parse --verify HEAD`)
 # 다른 파일 수정
 # 아래 sed i, e 태그 IBM
 # if grep -q "^LEAFY_POSTGRES_TAG=" .env; then sed -i'' -e "s/^LEAFY_POSTGRES_TAG=.*/LEAFY_POSTGRES_TAG=${TEST}/" .env;  else echo "LEAFY_POSTGRES_TAG=${TEST}" >> .env; fi;
+
 if [ ! $SERVICE_TAG -z ] && [ $(grep -c "^${SERVICE_TAG}=" .env) -eq 1 ]
 then 
     sed -i '' -e "s/^${SERVICE_TAG}=.*/${SERVICE_TAG}=${COMMITHASH}/" .env
