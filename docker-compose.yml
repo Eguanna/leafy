@@ -2,12 +2,21 @@ version: '3'
 services:
   leafy-postgres:
     container_name: leafy-postgres
+    build: ./leafy-postgresql
     image: ${DOCKER_HUB_USERNAME}/leafy-postgres:${LEAFY_POSTGRES_TAG}
     ports:
       - "5432:5432"
     hostname: "leafy-postgres"
     volumes:
       - /${pwd}/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_URL="************"
+      POSTGRES_URL_NO_SSL="************"
+      POSTGRES_URL_NON_POOLING="************"
+      POSTGRES_USER="************"
+      POSTGRES_HOST="************"
+      POSTGRES_PASSWORD="************"
+      POSTGRES_DATABASE="************"
     deploy:
       resources:
         limits:
