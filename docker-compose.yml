@@ -1,11 +1,13 @@
 version: '3'
 services:
   leafy-postgres:
+    container_name: leafy-postgres
     image: ${DOCKER_HUB_USERNAME}/leafy-postgres:${LEAFY_POSTGRES_TAG}
     ports:
       - "5432:5432"
+    hostname: "leafy-postgres"
     volumes:
-      - mydata
+      - /${pwd}/data:/var/lib/postgresql/data
     deploy:
       resources:
         limits:
@@ -14,6 +16,7 @@ services:
     restart: always
 
   leafy-backend:
+    container_name: leafy-backend
     build: 
       context: ./leafy-backend
       dockerfile: Dockerfile
@@ -21,6 +24,7 @@ services:
     command: sh -c "/script.sh"
     environment:
       - DB_URL=leafy-postgres
+    hostname: "leafy"
     ports:
       - "8080:8080"
     depends_on:
@@ -33,11 +37,10 @@ services:
     restart: on-failure
       
   leafy-front:
+    container_name: leafy-front
     image: ${DOCKER_HUB_USERNAME}/leafy-frontend:${LEAFY_FRONTEND_TAG}
     environment:
       - BACKEND_HOST=leafy-backend
-    env_file:
-      - ".env"
     ports:
       - "80:80"
     depends_on:
@@ -49,8 +52,8 @@ services:
           memory: 64M
     restart: on-failure
 
-volumes:
-  mydata:
-
 networks:
-  leafy-network:
+  default: 
+    external:
+      leafy-network: 
+        driver: bridge
