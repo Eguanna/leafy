@@ -23,7 +23,7 @@ fi
 
 # 특정 폴더 내용 커밋 및 푸쉬
 cd $TARGET_DIR
-git add .
+git add $TARGET_DIR
 git commit -m "$COMMIT_MSG1"
 git push
 COMMITHASH=$(echo `git rev-parse --verify HEAD`)
@@ -40,7 +40,6 @@ fi
 
 
 # 다른 파일 변경 사항 커밋 및 푸쉬
-cd ..
 git add $ENV_FILE
 git commit -m "SH ENV FILE UPDATED"
 git push
