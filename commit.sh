@@ -14,7 +14,7 @@ if [ $1 = 'backend' ]; then
 elif [ $1 = 'front' ]; then
     TARGET_DIR='./leafy-front/'
     SERVICE_TAG='LEAFY_FRONTEND_TAG'
-elif [ $1 = 'postgresql' ]; then
+elif [ $1 = 'postgres' ]; then
     TARGET_DIR='./leafy-postgresql/'
     SERVICE_TAG='LEAFY_POSTGRES_TAG'
 else 
