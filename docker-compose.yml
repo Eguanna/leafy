@@ -2,10 +2,10 @@ version: '3'
 services:
   leafy-postgres:
     image: ${DOCKER_HUB_USERNAME}/leafy-postgres:${LEAFY_POSTGRES_TAG}
-    prots:
-      - 5432:5432
+    ports:
+      - "5432:5432"
     volumes:
-      - /data:/var/lib/postgresql/data
+      - mydata
     deploy:
       resources:
         limits:
@@ -22,7 +22,7 @@ services:
     environment:
       - DB_URL=leafy-postgres
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       - leafy-postgres
     deploy:
@@ -33,11 +33,13 @@ services:
     restart: on-failure
       
   leafy-front:
-    image: ${DOCKER_HUB_USERNAME}/leafy-front:${LEAFY_FRONTEND_TAG}
+    image: ${DOCKER_HUB_USERNAME}/leafy-frontend:${LEAFY_FRONTEND_TAG}
     environment:
       - BACKEND_HOST=leafy-backend
+    env_file:
+      - ".env"
     ports:
-      - 80:80
+      - "80:80"
     depends_on:
       - leafy-backend
     deploy:
@@ -47,6 +49,8 @@ services:
           memory: 64M
     restart: on-failure
 
-# volumes:
-#   mydata:
-#     external: true
+volumes:
+  mydata:
+
+networks:
+  leafy-network:
