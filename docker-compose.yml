@@ -53,7 +53,5 @@ services:
     restart: on-failure
 
 networks:
-  default: 
-    external:
-      leafy-network: 
-        driver: bridge
+  leafy-network: 
+    driver: bridge
